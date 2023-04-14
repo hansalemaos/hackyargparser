@@ -100,12 +100,15 @@ def add_sysargv(f_py=None):
                         pass
 
                     if not dtypegood:
-                        for dty in allanotdict[a].__args__:
-                            try:
-                                conva = dty(config.parsedargs[a])
-                                break
-                            except Exception as fe:
-                                continue
+                        try:
+                            for dty in allanotdict[a].__args__:
+                                try:
+                                    conva = dty(config.parsedargs[a])
+                                    break
+                                except Exception as fe:
+                                    continue
+                        except Exception as fa:
+                            conva = allanotdict[a](config.parsedargs[a])
                     newargs.append(conva)
                 except Exception as adf:
                     newargs.append(b)
